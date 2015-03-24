@@ -1,0 +1,13 @@
+**.DS_Store
+*.iml
+.idea
+.classpath
+.project
+.settings
+build/
+.gradle/
+bin/
+target/
+.nrepl-port
+.lein-repl-history
+.vagrant/

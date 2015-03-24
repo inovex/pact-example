@@ -1,0 +1,29 @@
+buildscript {
+	repositories {
+        mavenCentral()
+        maven { url "https://repo.spring.io/snapshot" }
+        maven { url "https://repo.spring.io/milestone" }
+    }
+    
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.0.M2')
+    }
+}
+
+apply plugin: 'spring-boot'
+apply plugin: 'java'
+apply plugin: 'application'
+
+mainClassName = 'de.inovex.microservices.product.Application'
+
+dependencies {
+    compile 'org.springframework.boot:spring-boot-starter-web:1.2.0.M2'
+	testCompile 'org.springframework:spring-test:4.0.6.RELEASE'
+    testCompile 'au.com.dius:pact-jvm-consumer-junit_2.11:2.1.7'
+}
+
+repositories {
+	mavenCentral()
+    maven { url "https://repo.spring.io/snapshot" }
+    maven { url "https://repo.spring.io/milestone" }
+}

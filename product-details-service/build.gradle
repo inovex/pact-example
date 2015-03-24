@@ -1,0 +1,48 @@
+buildscript {
+	repositories {
+		mavenCentral()
+		maven { url "https://repo.spring.io/snapshot" }
+		maven { url "https://repo.spring.io/milestone" }
+		maven { url 'http://repo.springsource.org/libs-milestone' }
+
+	}
+    
+    dependencies {
+        classpath('org.springframework.boot:spring-boot-gradle-plugin:1.2.0.M2')
+		classpath('au.com.dius:pact-jvm-provider-gradle_2.11:2.1.7')
+    }
+}
+
+apply plugin: 'spring-boot'
+apply plugin: 'java'
+apply plugin: 'au.com.dius.pact'
+
+mainClassName = 'de.inovex.microservices.productdetails.Application'
+
+dependencies {
+	compile 'org.springframework.boot:spring-boot-starter-web:1.2.0.M2'
+	testCompile 'junit:junit:4.11'
+	testCompile 'org.springframework:spring-test:4.0.6.RELEASE'
+	testCompile 'com.jayway.restassured:rest-assured:2.3.4'
+	testCompile 'org.springframework.boot:spring-boot-starter-test'
+}
+
+pact {
+	serviceProviders {
+		productDetailsServiceProvider {
+			protocol = 'http'
+			host = 'localhost'
+			port = 10100
+			path = '/'
+			hasPactWith('productServiceConsumer') {
+				pactFile = file("../product-service/target/pacts/Product_Service-Product_Details_Service.json")
+			}
+		}
+	}
+}
+
+repositories {
+	mavenCentral()
+	maven { url "https://repo.spring.io/snapshot" }
+	maven { url "https://repo.spring.io/milestone" }
+}
